@@ -4,6 +4,7 @@ from db_operations import fetch_emails, fetch_phone_numbers, insert_email, inser
 from text_processing import find_email, find_phone_number
 from remote_log_fetcher import get_latest_replication_logs
 import logging
+import os
 
 logging.basicConfig(
     filename='bot.log',
@@ -13,7 +14,9 @@ logging.basicConfig(
 )
 logging.info("Запуск бота")
 
-TOKEN = '6820840931:AAHzBeJl1uH0_aIp7E4WK_Fr0UZHc6aTqi0'
+
+TOKEN = os.getenv('TOKEN')
+
 
 INPUT_TEXT, INPUT_CONFIRMATION = range(2)
 
