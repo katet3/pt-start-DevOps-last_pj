@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  bot_image:
+    image: bot_image
+    restart: always
+    depends_on:
+      db_image:
+        condition: service_healthy
+    networks:
+      app_network:
+        ipv4_address: 172.25.0.3
+
+  db_image:
+    image: db_image
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      app_network:
+        ipv4_address: 172.25.0.2
+
+  db_repl_image:
+    image: db_repl_image
+    restart: always
+    depends_on:
+      - db_image
+    networks:
+      app_network:
+        ipv4_address: 172.25.0.4
+
+networks:
+  app_network:
+    ipam:
+      config:
+        - subnet: "172.25.0.0/16"

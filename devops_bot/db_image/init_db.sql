@@ -1,0 +1,12 @@
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE phone_numbers (
+    id SERIAL PRIMARY KEY,
+    phone_number VARCHAR(20) NOT NULL
+);
+
+CREATE ROLE repl_user REPLICATION LOGIN PASSWORD 'kali';
+SET CLIENT_ENCODING TO 'UTF8';
