@@ -1,4 +1,4 @@
-- name: Restart tg_bot
+- name: restart tg_bot
   systemd:
     name: tg_bot
     state: restarted

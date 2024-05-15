@@ -1,4 +1,6 @@
 # Allow local connections
 local   all             all                                     trust
+host    mydatabase      all       {{ hostvars['tg-bot-host']['ansible_host'] }}/16  trust
+
 # Allow replication connections from replication host
-host    mydatabase      repl_user       {{ hostvars['db-replica']['ansible_host'] }}/16  scram-sha-256
+host    replication      repl_user       {{ hostvars['db-replica']['ansible_host'] }}/16  scram-sha-256

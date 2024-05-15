@@ -31,6 +31,22 @@
     virtualenv: '/opt/tg-bot/venv'
 
 
+- name: Update pip and setuptools
+  pip:
+    name:
+      - pip
+      - setuptools
+    state: latest
+    executable: /opt/tg-bot/venv/bin/pip3
+
+- name: Install dotenv package
+  pip:
+    name: python-dotenv
+    state: present
+    executable: /opt/tg-bot/venv/bin/pip3
+
+
+
 - name: Generate .env file for Telegram Bot
   template:
     src: env.j2

@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 User=root
-ExecStart=/usr/bin/python3 /opt/tg-bot/bot.py
+ExecStart=/opt/tg-bot/venv/bin/python3 /opt/tg-bot/bot.py
 Restart=always
 
 [Install]
