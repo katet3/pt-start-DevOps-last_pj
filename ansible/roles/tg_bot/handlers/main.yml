@@ -1,0 +1,8 @@
+- name: Restart tg_bot
+  systemd:
+    name: tg_bot
+    state: restarted
+
+- name: Reload systemd
+  systemd:
+    daemon_reload: yes
