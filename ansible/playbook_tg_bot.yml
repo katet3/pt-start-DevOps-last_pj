@@ -1,0 +1,14 @@
+- hosts: masters
+  become: yes
+  roles:
+    - db_master
+
+- hosts: replicas
+  become: yes
+  roles:
+    - db_replica
+
+- hosts: tg_bot
+  become: yes
+  roles:
+    - tg_bot

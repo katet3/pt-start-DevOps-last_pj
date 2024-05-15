@@ -1,0 +1,24 @@
+- name: Install PostgreSQL
+  apt:
+    name: postgresql
+    state: present
+
+- name: Configure PostgreSQL master
+  template:
+    src: postgresql.conf.j2
+    dest: /etc/postgresql/15/main/postgresql.conf
+  notify:
+    - restart postgresql
+
+- name: Configure pg_hba.conf for replication access
+  template:
+    src: pg_hba.conf.j2
+    dest: /var/lib/postgresql/15/main/pg_hba.conf
+  notify: restart postgresql
+
+
+- name: Ensure PostgreSQL is running
+  service:
+    name: postgresql
+    state: started
+    enabled: yes
