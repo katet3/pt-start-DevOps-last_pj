@@ -5,14 +5,14 @@
 
 - name: Configure PostgreSQL master
   template:
-    src: postgresql.conf.j2
+    src: postgresql.conf
     dest: /etc/postgresql/15/main/postgresql.conf
   notify:
     - restart postgresql
 
 - name: Configure pg_hba.conf for replication access
   template:
-    src: pg_hba.conf.j2
+    src: pg_hba.conf
     dest: /var/lib/postgresql/15/main/pg_hba.conf
   notify: restart postgresql
 
