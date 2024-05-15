@@ -1,0 +1,7 @@
+telegram_token: "6820840931:AAHzBeJl1uH0_aIp7E4WK_Fr0UZHc6aTqi0"
+db_database: "mydatabase"
+db_user: "postgres"
+db_password: "postgres"
+ssh_user: "root"
+ssh_password: "1861"
+db_host: "{{ hostvars['db-master'].ansible_host }}"

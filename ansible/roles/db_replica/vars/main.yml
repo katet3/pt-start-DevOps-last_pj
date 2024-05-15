@@ -1,4 +1,4 @@
 pgdata: "/var/lib/postgresql/15/main"
 db_repl_user: "repl_user"
 db_repl_password: "kali"
-db_host: "172.25.0.2"
+db_host: "192.168.1.60"
