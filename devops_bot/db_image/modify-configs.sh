@@ -1,20 +1,25 @@
 #!/bin/bash
 set -e
 
-export PATH=$PATH:/usr/lib/postgresql/15/bin
-pg_ctl -D /var/lib/postgresql/data stop
-
-# Путь к директории с данными
+# Путь к директории с данными PostgreSQL
 PGDATA="/var/lib/postgresql/data"
 
-# Конфигурации
-KEY_STRING_2="host replication repl_user 172.25.0.4/16 scram-sha-256"
+# Останавливаем PostgreSQL для безопасного изменения конфигураций
+pg_ctl -D $PGDATA stop
 
+# Заменяем плейсхолдеры в SQL-скрипте
+sed -i "s/%DB_REPL_USER%/${DB_REPL_USER}/g" /tmp/init_db.sql
+sed -i "s/%DB_REPL_PASSWORD%/${DB_REPL_PASSWORD}/g" /tmp/init_db.sql
+
+# Выполнение модифицированного SQL-скрипта
+psql -U "$POSTGRES_USER" -d "$POSTGRES_DB" -a -f /docker-entrypoint-initdb.d/init_db.sql
+
+# модифицируем pg_hba.conf
+echo "local   all             all                                     trust" > $PGDATA/pg_hba.conf
+echo "host    replication  ${DB_REPL_USER}       172.25.0.4/16           scram-sha-256" >> $PGDATA/pg_hba.conf
+
+# Копируем модифицированный postgresql.conf
 cat /tmp/postgresql.conf >> $PGDATA/postgresql.conf
 
-# Добавление кастомной конфигурации в pg_hba.conf
-if ! grep -q "$KEY_STRING_2" $PGDATA/pg_hba.conf; then
-    echo "$KEY_STRING_2" >> $PGDATA/pg_hba.conf
-fi
-
-pg_ctl -D "/var/lib/postgresql/data" start
+# Перезапускаем PostgreSQL
+pg_ctl -D $PGDATA start
