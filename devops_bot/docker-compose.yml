@@ -34,10 +34,12 @@ services:
       - POSTGRES_DB=${DB_DATABASE}
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
       - DB_REPL_USER=${DB_REPL_USER}
       - DB_REPL_PASSWORD=${DB_REPL_PASSWORD}
       - RM_USER=${RM_USER}
       - RM_PASSWORD=${RM_PASSWORD}
+      - RM_PORT=${RM_PORT}
     networks:
       app_network:
         ipv4_address: 172.25.0.2
@@ -48,6 +50,9 @@ services:
     depends_on:
       - db_image
     environment:
+      - POSTGRES_USER=${DB_REPL_USER}
+      - POSTGRES_PASSWORD=${DB_REPL_PASSWORD}
+      - POSTGRES_DB=${DB_DATABASE}
       - DB_REPL_USER=${DB_REPL_USER}
       - DB_REPL_PASSWORD=${DB_REPL_PASSWORD}
       - DB_HOST=${DB_HOST}  # Это имя хоста мастера для подключения

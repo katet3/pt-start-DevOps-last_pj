@@ -1,11 +1,13 @@
 import paramiko
 import os
 
+
 # Загрузка переменных окружения
-RM_HOST = os.getenv('RM_HOST')
-RM_PORT = int(os.getenv('RM_PORT', 22))  # Использование порта по умолчанию 22, если RM_PORT не задан
-RM_USER = os.getenv('RM_USER')
+RM_HOST     = os.getenv('RM_HOST')
+RM_PORT     = int(os.getenv('RM_PORT', 22))  # Использование порта по умолчанию 22, если RM_PORT не задан
+RM_USER     = os.getenv('RM_USER')
 RM_PASSWORD = os.getenv('RM_PASSWORD')
+
 
 def get_latest_replication_logs():
     ssh_host = RM_HOST
